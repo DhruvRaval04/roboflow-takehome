@@ -1,0 +1,17 @@
+# Direct dependencies (Python 3.11, Windows 11, CUDA 12.8). Exact full env: requirements-lock.txt
+#
+# Install torch FIRST from the CUDA index. `pip install inference-models` on its own
+# pulls the CPU-only torch from PyPI and the model silently runs on CPU (~50x slower).
+#   pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+#   pip install -r requirements.txt
+#   (if torch got swapped to +cpu anyway: re-run the first line with --force-reinstall --no-deps)
+inference-models==0.39.1   # Roboflow: AutoModel loads paligemma2-3b-pt-224 from Roboflow's model registry
+supervision==0.30.7        # Roboflow: Detections.from_vlm(PALIGEMMA) parses <locXXXX> tokens; box/label drawing
+transformers==5.15.1       # PaliGemma 2 model + processor under inference-models
+bitsandbytes==0.50.2       # 4-bit NF4 quantization -> fits the 3B model in ~2.7 GB VRAM
+accelerate==1.15.0
+peft==0.21.2               # LoRA adapters (fine-tuned "project/version" models)
+opencv-python==5.0.0.93    # MJPEG stream reading (FFmpeg backend) + JPEG encode for the web page
+numpy==2.4.6
+pyserial==3.5              # USB serial to the Pico (car_bridge.py, drive_keys.py)
+pytest                     # test_find.py

@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+runs/
+*.log
+*.bin
+# loose debug captures; docs/ images are tracked
+/*.jpg
+# never commit WiFi credentials (copy wifi_secrets.example.h instead)
+firmware/**/wifi_secrets.h
+firmware/**/build/
+.env
